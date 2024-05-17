@@ -25,9 +25,6 @@
                                 @click="isOpen = !isOpen">
                                 <span class="absolute -inset-1.5"></span>
                                 <span class="sr-only">Open user menu</span>
-                                <img class="h-8 w-8 rounded-full"
-                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                    alt="">
                                 <span class="mx-2 text-white">Admin</span>
                             </button>
                         </div>
@@ -73,20 +70,11 @@
     <!-- Mobile menu, show/hide based on menu state. -->
     <div x-show="isOpen" class="md:hidden" id="mobile-menu">
         <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a href="#" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
-                aria-current="page">Dashboard</a>
-            <a href="#"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Submit
-                Cuti</a>
+            <x-nav-link-mobile href="/" :active="request()->is('/')">Dashboard</x-nav-link-mobile>
+            <x-nav-link-mobile href="/cuti" :active="request()->is('cuti')">Cuti</x-nav-link-mobile>
         </div>
         <div class="border-t border-gray-700 pb-3 pt-4">
             <div class="flex items-center px-5">
-                <div class="flex-shrink-0">
-                    <img class="h-10 w-10 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt="">
-                </div>
                 <div class="ml-3">
                     <div class="text-base font-medium leading-none text-white">Tom Cook</div>
                     <div class="text-sm font-medium leading-none text-gray-400">tom@example.com</div>

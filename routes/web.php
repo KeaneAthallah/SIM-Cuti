@@ -1,10 +1,9 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home',['title' => 'Dashboard || Home','subtitle' => 'Home']);
-})->name('home');
+Route::get('/',[DashboardController::class,'index'])->name('home.index');
 Route::get('/cuti', function () {
     return view('cuti',['title' => 'Dashboard || Submit','subtitle' => 'Submit cuti']);
 })->name('cuti');
