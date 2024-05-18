@@ -7,37 +7,34 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title mb-4">All Surveys</h6>
+                        <h6 class="card-title mb-4">Semua Pengajuan Cuti</h6>
                         <div class="table-responsive mt-2">
                             <table id="dataTableExample" class="table">
                                 <thead>
-                                    <tr>
+                                    <tr class="text-xs lg:text-md">
                                         <th>No</th>
-                                        <th>User Id</th>
-                                        <th>Tanggal</th>
-                                        <th>Waktu</th>
-                                        <th>Total IKP</th>
+                                        <th>NIP</th>
+                                        <th>Jenis</th>
+                                        <th>Mulai</th>
+                                        <th>Akhir</th>
+                                        <th>Total</th>
+                                        <th>Tanggal Pengajuan</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($surveys as $type)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $type->code_user }}</td>
-                                    <td>{{ $type->date }}</td>
-                                    <td>{{ $type->time }}</td>
-                                    <td>{{ $type->total_IKP }}</td>
-                                    <td>
-                                        <a
-                                            href="#"
-                                            class="btn btn-danger"
-                                            id="delete"
-                                            >Delete</a
-                                        >
-                                    </td>
-                                </tr>
-                                @endforeach --}}
+                                    {{-- @foreach ($users as $user)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->username }}</td>
+                                            <td>{{ $user->isAdmin }}</td>
+                                            <td>{{ $user->created_at }}</td>
+                                            <td>
+                                                <a href="#" class="btn btn-danger" id="delete">Delete</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach --}}
                                 </tbody>
                             </table>
                         </div>

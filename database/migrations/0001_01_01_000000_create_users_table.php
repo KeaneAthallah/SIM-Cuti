@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('username')->unique();
-            $table->string('nip');
+            $table->string('email')->unique();
+            $table->string('nip')->unique();
             $table->boolean('isAdmin')->default(false);
+            $table->integer('hak')->default(1);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

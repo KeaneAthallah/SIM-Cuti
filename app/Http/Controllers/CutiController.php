@@ -12,7 +12,7 @@ class CutiController extends Controller
      */
     public function index()
     {
-        //
+        return view("cuti",['subtitle'=>'Pengajuan Cuti','title'=>'Dashboard || Pengajuan']);
     }
 
     /**

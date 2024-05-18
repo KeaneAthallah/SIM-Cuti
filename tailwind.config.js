@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const defaultTheme = require("tailwindcss/defaultTheme");
+const defaultTheme = require("tailwindcss/defaultTheme", "@tailwindcss/forms");
 export default {
     content: [
         "./resources/**/*.blade.php",

@@ -10,6 +10,6 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {    
-        return view('home',['title' => 'Dashboard || Home','subtitle' => 'Home']);
+        return view('home',['title' => 'Dashboard || Home','subtitle' => 'Home','users' => User::all()]);
     }
 }
