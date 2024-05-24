@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CutiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -8,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('home');
 // });
 Route::get('/', [DashboardController::class,'index'])->name('dashboard');
+Route::resource('/cuti',CutiController::class);
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
