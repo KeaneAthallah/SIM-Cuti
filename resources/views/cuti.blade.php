@@ -46,6 +46,8 @@
         </div>
         <!-- Recent Sales End -->
         <form class="px-4 py-4 bg-slate-200 mx-6 rounded-md">
+            @csrf
+            <input type="hidden">
             <h2 class="text-base font-bold leading-7 text-gray-900">Ajukan Cuti</h2>
             <p class="mt-1 text-sm leading-6 text-gray-700">Silahkan isi form dibawah untuk melakukan pengajuan
                 cuti.</p>
