@@ -16,17 +16,17 @@
 <body>
     <div class="container">
         <h1>Users</h1>
-        <form action="{{ route('import') }}" enctype="multipart/form-data" method="POSTl">
+        <form action="{{ route('import') }}" enctype="multipart/form-data" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Excel file</label>
                 <input type="file" class="form-control" name="excel">
                 <div id="emailHelp" class="form-text">Upload Excel file</div>
-                @error('excel')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
+            @error('excel')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </form>
     </div>
     <!-- Optional JavaScript; choose one of the two! -->

@@ -1,42 +1,40 @@
 <x-layout>
     <x-slot:subtitle>{{ $subtitle }}</x-slot:subtitle>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <x-slot:name>{{ $user->name }}</x-slot:name>
-    <x-slot:nip>{{ $user->nip }}</x-slot:nip>
-    <!-- Recent Sales Start -->
+    <x-slot:user>{{ $user }}</x-slot:user>
     <div class="container-fluid px-4 pt-4">
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title mb-4">Semua Pengajuan Cuti</h6>
+                        <h6 class="card-title mb-4">Semua users</h6>
                         <div class="table-responsive mt-2">
                             <table id="dataTableExample" class="table">
                                 <thead>
                                     <tr class="text-xs lg:text-md">
                                         <th>No</th>
+                                        <th>Nama</th>
                                         <th>NIP</th>
-                                        <th>Jenis</th>
-                                        <th>Mulai</th>
-                                        <th>Akhir</th>
-                                        <th>Total</th>
-                                        <th>Tanggal Pengajuan</th>
+                                        <th>Pangkat</th>
+                                        <th>Gol</th>
+                                        <th>Jabatan</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($users as $user)
+                                    @foreach ($users as $user)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $user->name }}</td>
-                                            <td>{{ $user->username }}</td>
-                                            <td>{{ $user->isAdmin }}</td>
-                                            <td>{{ $user->created_at }}</td>
+                                            <td>{{ $user->nip }}</td>
+                                            <td>{{ $user->pangkat }}</td>
+                                            <td>{{ $user->gol }}</td>
+                                            <td>{{ $user->jabatan }}</td>
                                             <td>
                                                 <a href="#" class="btn btn-danger" id="delete">Delete</a>
                                             </td>
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -45,5 +43,4 @@
             </div>
         </div>
     </div>
-    <!-- Recent Sales End -->
 </x-layout>

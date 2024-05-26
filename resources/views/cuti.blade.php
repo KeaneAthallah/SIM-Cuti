@@ -1,6 +1,7 @@
 <x-layout>
     <x-slot:subtitle>{{ $subtitle }}</x-slot:subtitle>
     <x-slot:title>{{ $title }}</x-slot:title>
+    <x-slot:user>{{ $user }}</x-slot:user>
     <!-- Recent Sales Start -->
     <div>
         <div class="container-fluid px-4 pt-4 mb-5">

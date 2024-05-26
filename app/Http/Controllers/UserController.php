@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\UsersImport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -11,8 +13,10 @@ class UserController extends Controller
     }
     public function import(Request $request){
         $request->validate([
-            'excel_file' => 'required|mimes:xlsx'
+            'excel' => 'required','mimes:xlsx'
         ]);
+        Excel::import(new UsersImport, $request->file('excel'));
+        return redirect('/')->with('success', 'All good!');
     }
 
 }

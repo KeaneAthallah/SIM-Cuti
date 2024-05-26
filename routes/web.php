@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('home');
 // });
 Route::get('/', [DashboardController::class,'index'])->name('dashboard');
+Route::get('/users', [DashboardController::class,'users'])->name('users');
 Route::resource('/cuti',CutiController::class);
-Route::get('/users',[UserController::class,'list']);
-Route::get('/user-import',[UserController::class,'import'])->name('import');
+Route::get('/test',[UserController::class,'list']);
+Route::post('/user-import',[UserController::class,'import'])->name('import');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

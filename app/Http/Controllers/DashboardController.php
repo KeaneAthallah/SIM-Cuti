@@ -10,6 +10,11 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {    
-        return view('home',['title' => 'Dashboard || Home','subtitle' => 'Home','users' => User::all()]);
+        // dd($request->user());
+        return view('home',['title' => 'Dashboard || Home','subtitle' => 'Home','users' => User::all(),'user'=> $request->user()]);
+    }
+    public function users(Request $request)
+    {    
+        return view('semua',['title' => 'Users || Home','subtitle' => 'Semua Users','users' => User::all()]);
     }
 }
