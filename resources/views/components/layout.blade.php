@@ -11,12 +11,13 @@
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <link rel="stylesheet" href="{{ asset('dashboard/datatables.net-bs5/dataTables.bootstrap5.css') }}" />
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="icon" href="{{ asset('dashboard/logo.png') }}>
     @vite('resources/css/app.css')
 </head>
 
 <body class="h-full">
     <div class="min-h-full bg-slate-50">
-        <x-navbar>{{ $name }}</x-navbar>
+        <x-navbar></x-navbar>
         <x-header>{{ $subtitle }}</x-header>
         <main>
             <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
@@ -34,6 +35,6 @@
     <!-- Custom js Alltype Page -->
     <script src="{{ asset('dashboard/js/data-table.js') }}"></script>
     <!-- End custom js Alltype Page -->
-</body>
+    </body>
 
 </html>

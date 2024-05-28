@@ -6,21 +6,21 @@ function tampilCuti() {
     console.log(jenis);
 
     if (jenis == "tahunan") {
-        document.getElementById("totalCuti").value = "10";
-    }
-    if (jenis == "besar") {
+        let hak = document.getElementById("hak").value;
+        if (hak == 1) {
+            document.getElementById("totalCuti").value = "12";
+        } else if (hak == 2) {
+            document.getElementById("totalCuti").value = "18";
+        } else {
+            document.getElementById("totalCuti").value = "24";
+        }
+    } else if (jenis == "besar") {
         document.getElementById("totalCuti").value = "90";
-    }
-    if (jenis == "sakit") {
+    } else if (jenis == "sakit") {
         document.getElementById("totalCuti").value = "14";
-    }
-    if (jenis == "alasanPenting") {
+    } else if (jenis == "alasanPenting") {
         document.getElementById("totalCuti").value = "30";
-    }
-    if (jenis == "tahunan") {
-        document.getElementById("totalCuti").value = "90";
-    }
-    if (jenis == "tahunan") {
-        document.getElementById("totalCuti").value = "10 hari";
+    } else if (jenis == "luarTanggunganNegara") {
+        document.getElementById("totalCuti").value = "1095";
     }
 }

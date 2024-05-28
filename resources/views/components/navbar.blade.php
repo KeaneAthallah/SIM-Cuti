@@ -3,8 +3,7 @@
         <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    <img class="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                        alt="Your Company" />
+                    <img class="h-8 w-8" src="{{ asset('dashboard/logo.svg') }}" alt="Your Company" />
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
@@ -26,7 +25,8 @@
                                 @click="isOpen = !isOpen">
                                 <span class="absolute -inset-1.5"></span>
                                 <span class="sr-only">Open user menu</span>
-                                <span class="mx-2 text-white">Admin</span>
+                                <span class="mx-2 text-white"> {{ auth()->user()->name }}
+                                </span>
                             </button>
                         </div>
                         <div x-show="isOpen" x-transition:enter="transition ease-out duration-100 transform"
@@ -37,12 +37,11 @@
                             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                             tabindex="-1">
                             <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                                tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                                tabindex="-1" id="user-menu-item-1">Settings</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                                tabindex="-1" id="user-menu-item-2">Sign out</a>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                                    id="user-menu-item-2">Sign out</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -79,10 +78,10 @@
             <div class="flex items-center px-4">
                 <div class="">
                     <div class="text-base font-medium leading-none text-white">
-                        {{ $slot }}
+                        {{ auth()->user()->name }}
                     </div>
                     <div class="text-sm font-medium leading-none text-gray-400">
-                        {{-- {{ $slot }} --}}
+                        {{ auth()->user()->nip }}
                     </div>
                 </div>
             </div>

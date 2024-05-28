@@ -1,7 +1,8 @@
 <x-layout>
     <x-slot:subtitle>{{ $subtitle }}</x-slot:subtitle>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <x-slot:user>{{ $user }}</x-slot:user>
+    <x-slot:user>{{ $user->name }}</x-slot:user>
+    {{-- <x-slot:user>{{ $user }}</x-slot:user> --}}
     <div class="container-fluid px-4 pt-4">
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">

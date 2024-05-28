@@ -1,8 +1,7 @@
 <x-layout>
     <x-slot:subtitle>{{ $subtitle }}</x-slot:subtitle>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <x-slot:name>{{ $user->name }}</x-slot:name>
-    <x-slot:nip>{{ $user->nip }}</x-slot:nip>
+    <x-slot:user>{{ $user->name }}</x-slot:user>
     <!-- Recent Sales Start -->
     <div class="container-fluid px-4 pt-4">
         <div class="row">
