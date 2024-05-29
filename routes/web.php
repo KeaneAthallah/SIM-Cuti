@@ -19,6 +19,7 @@ Route::post('/user-import',[UserController::class,'import'])->name('import');
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class,'index'])->name('dashboard');
     Route::get('/users', [DashboardController::class,'users'])->name('users');
+    Route::get('/generatePDF',[DashboardController::class,'generatePDF'])->name('generatePDF');
     Route::resource('/cuti',CutiController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
