@@ -1,8 +1,6 @@
 <x-layout>
     <x-slot:subtitle>{{ $subtitle }}</x-slot:subtitle>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <x-slot:user>{{ $user->name }}</x-slot:user>
-    {{-- <x-slot:user>{{ $user }}</x-slot:user> --}}
     <div class="container-fluid px-4 pt-4">
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
@@ -12,7 +10,7 @@
                         <div class="table-responsive mt-2">
                             <table id="dataTableExample" class="table">
                                 <thead>
-                                    <tr class="text-xs lg:text-md">
+                                    <tr class="text-xs lg:text-base text-center">
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>NIP</th>
@@ -31,8 +29,9 @@
                                             <td>{{ $user->pangkat }}</td>
                                             <td>{{ $user->gol }}</td>
                                             <td>{{ $user->jabatan }}</td>
-                                            <td>
+                                            <td class="flex flex-row gap-1">
                                                 <a href="#" class="btn btn-danger" id="delete">Delete</a>
+                                                <a href="#" class="btn btn-info" id="info">info</a>
                                             </td>
                                         </tr>
                                     @endforeach

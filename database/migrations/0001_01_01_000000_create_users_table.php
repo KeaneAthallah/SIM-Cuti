@@ -17,9 +17,10 @@ return new class extends Migration
             $table->string('nip')->unique('nip')->nullable();
             $table->boolean('isAdmin')->default(false);
             $table->integer('hak')->default(1);
-            $table->string('pangkat');
+            $table->string('pangkat')->nullable();
             $table->string('gol')->nullable();
-            $table->string('jabatan');
+            $table->string('role')->nullable()->default('staff');
+            $table->string('jabatan')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

@@ -14,7 +14,7 @@ class CutiController extends Controller
     public function index(Request $request)
     {
         $user_year = substr($request->user()->nip,9,4);
-        $user_month = substr($request->user()->nip,12,2);
+        $user_month = substr($request->user()->nip,13,2);
         $targetDate = new DateTime($user_year."-".$user_month."-01");
         // Get today's date
         $today = new DateTime();
@@ -26,7 +26,7 @@ class CutiController extends Controller
         if ($today->format('m') < $targetDate->format('m')) {
           $yearsPassed--;
         }
-        return view("cuti",['subtitle'=>'Pengajuan Cuti','title'=>'Dashboard || Pengajuan','user' => $request->user(),'yearPassed' => $yearsPassed]);
+        return view("cuti",['subtitle'=>'Pengajuan Cuti','title'=>'Dashboard || Pengajuan','cuti' => Cuti::where('user_id',$request->user()->id)->get(),'yearPassed' => $yearsPassed]);
     }
 
     /**
@@ -42,19 +42,30 @@ class CutiController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'tipe' => ['required','string'],
-            'tanggal_mulai' =>[ 'required','date'],
-            'tanggal_akhir' =>[ 'required','date'],
-            'pesan' => ['required','string'],
-        ]);
         $targetDate = new DateTime($request->tanggal_mulai);
         // Get today's date
         $today = new DateTime($request->tanggal_akhir);
         // Calculate the difference in years using date diff
         $interval = $today->diff($targetDate);
         // Extract the number of years from the interval
-        $total = $interval->days;
+        $total = $interval->days;   
+        $request->validate([
+            'tipe' => ['required','string'],
+            'total_hak' => ['required','numeric','min:'.$total],
+            'tanggal_mulai' =>[ 'required','date'],
+            'tanggal_akhir' =>[ 'required','date'],
+            'pesan' => ['required','string'],
+        ]);
+        $cuti = Cuti::create([
+            'user_id' => auth()->user()->id,
+            'tipe' => $request->tipe,
+            'tanggal_mulai' => $request->tanggal_mulai,
+            'tanggal_akhir' => $request->tanggal_akhir,
+            'total_cuti' => $total,
+            'pesan' => $request->pesan,
+        ]);
+        return redirect()->route('cuti.index')->with('message', 'Selesai Regis');
+       
     }
 
     /**

@@ -1,7 +1,6 @@
 <x-layout>
     <x-slot:subtitle>{{ $subtitle }}</x-slot:subtitle>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <x-slot:user>{{ $user->name }}</x-slot:user>
     <!-- Recent Sales Start -->
     <div>
         <div class="container-fluid px-4 pt-4 mb-5">
@@ -20,23 +19,27 @@
                                             <th>Mulai</th>
                                             <th>Akhir</th>
                                             <th>Total</th>
-                                            <th>Tanggal Pengajuan</th>
+                                            <th>Status</th>
+                                            <th>Pesan</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($users as $user)
+                                        @foreach ($cuti as $c)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->username }}</td>
-                                                <td>{{ $user->isAdmin }}</td>
-                                                <td>{{ $user->created_at }}</td>
+                                                <td>{{ $c->user->nip }}</td>
+                                                <td>{{ $c->tipe }}</td>
+                                                <td>{{ $c->tanggal_mulai }}</td>
+                                                <td>{{ $c->tanggal_akhir }}</td>
+                                                <td>{{ $c->total_cuti . ' Hari' }}</td>
+                                                <td>{{ $c->status }}</td>
+                                                <td>{{ $c->pesan }}</td>
                                                 <td>
                                                     <a href="#" class="btn btn-danger" id="delete">Delete</a>
                                                 </td>
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -48,7 +51,7 @@
         <!-- Recent Sales End -->
         <form class="px-4 py-4 bg-slate-200 mx-6 rounded-md" action="{{ route('cuti.store') }}" method="POST">
             @csrf
-            <input type="hidden" name="hak" value="{{ $user->hak }}" id="hak">
+            <input type="hidden" name="hak" value="{{ auth()->user()->hak }}" id="hak">
             <h2 class="text-base font-bold leading-7 text-gray-900">Ajukan Cuti</h2>
             <p class="mt-1 text-sm leading-6 text-gray-700">Silahkan isi form dibawah untuk melakukan pengajuan
                 cuti.</p>
@@ -64,7 +67,7 @@
                                 <option value="besar">Cuti Besar</option>
                             @endif
                             <option value="sakit">Cuti Sakit</option>
-                            @if (substr($user->nip, 16, 1) == 2)
+                            @if (substr(auth()->user()->nip, 16, 1) == 2)
                                 <option value="melahirkan">Cuti Melahirkan</option>
                             @endif
                             <option value="alasanPenting">Cuti Karena alasan penting</option>
@@ -98,7 +101,6 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-
                 <div class="sm:col-span-3">
                     <label for="tanggal_akhir" class="block text-sm font-medium leading-6 text-gray-900">Tanggal akhir
                         cuti</label>
@@ -110,6 +112,16 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+                <div class="sm:col-span-3">
+                    <label for="pdf" class="block text-sm font-medium leading-6 text-gray-900">Upload PDF</label>
+                    <div class="mt-2">
+                        <input type="file" name="pdf" id="pdf" autocomplete="given-name"
+                            class="bg-white pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                    @error('pdf')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
 
                 <div class="sm:col-span-6">
                     <label for="pesan" class="block text-sm font-medium leading-6 text-gray-900">Comment</label>
@@ -117,9 +129,14 @@
                         <textarea id="pesan" name="pesan" type="pesan" rows="5" cols="60"
                             class="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
                     </div>
-                    @error('pesan')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
+                    <div class="flex flex-col">
+                        @error('pesan')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        @error('total_hak')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
                 </div>
 
             </div>

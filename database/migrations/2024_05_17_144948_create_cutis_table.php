@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('tanggal_mulai');
             $table->date('tanggal_akhir');
             $table->integer('total_cuti');
+            $table->string('pdf')->nullable();
             $table->string('status')->default('process');
             $table->string('pesan');
             $table->timestamps();

@@ -15,8 +15,8 @@ class UserController extends Controller
         $request->validate([
             'excel' => 'required','mimes:xlsx'
         ]);
-        // Excel::import(new UsersImport, $request->file('excel'));
-        // return redirect('/')->with('success', 'All good!');
+        Excel::import(new UsersImport, $request->file('excel'));
+        return redirect('/')->with('success', 'All good!');
     }
 
 }
