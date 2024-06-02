@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DateTime;
 use App\Models\Cuti;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CutiController extends Controller
@@ -13,9 +14,9 @@ class CutiController extends Controller
      */
     public function index(Request $request)
     {
-        $user_year = substr($request->user()->nip,9,4);
-        $user_month = substr($request->user()->nip,13,2);
-        $targetDate = new DateTime($user_year."-".$user_month."-01");
+        $user_year = substr($request->user()->nip, 9, 4);
+        $user_month = substr($request->user()->nip, 13, 2);
+        $targetDate = new DateTime($user_year . "-" . $user_month . "-01");
         // Get today's date
         $today = new DateTime();
         // Calculate the difference in years using date diff
@@ -24,9 +25,11 @@ class CutiController extends Controller
         $yearsPassed = $interval->y;
         // Adjust for incomplete year if current month is before target month
         if ($today->format('m') < $targetDate->format('m')) {
-          $yearsPassed--;
+            $yearsPassed--;
         }
-        return view("cuti",['subtitle'=>'Pengajuan Cuti','title'=>'Dashboard || Pengajuan','cuti' => Cuti::where('user_id',$request->user()->id)->get(),'yearPassed' => $yearsPassed]);
+        $tertuju = User::whereIn('role', ['kabid_damkar', 'sekdis', 'kabid_binmas', 'kabid_tibumtran', 'kabid_gakkum'])->get();
+        // dd($tertuju);
+        return view("cuti", ['subtitle' => 'Pengajuan Cuti', 'title' => 'Dashboard || Pengajuan', 'cuti' => Cuti::where('user_id', $request->user()->id)->get(), 'yearPassed' => $yearsPassed, 'tertuju' => $tertuju]);
     }
 
     /**
@@ -34,7 +37,6 @@ class CutiController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -48,24 +50,24 @@ class CutiController extends Controller
         // Calculate the difference in years using date diff
         $interval = $today->diff($targetDate);
         // Extract the number of years from the interval
-        $total = $interval->days;   
+        $total = $interval->days;
         $request->validate([
-            'tipe' => ['required','string'],
-            'total_hak' => ['required','numeric','min:'.$total],
-            'tanggal_mulai' =>[ 'required','date'],
-            'tanggal_akhir' =>[ 'required','date'],
-            'pesan' => ['required','string'],
+            'tipe' => ['required', 'string'],
+            'total_hak' => ['required', 'numeric', 'min:' . $total],
+            'tanggal_mulai' => ['required', 'date'],
+            'tanggal_akhir' => ['required', 'date'],
+            'pesan' => ['required', 'string'],
         ]);
         $cuti = Cuti::create([
             'user_id' => auth()->user()->id,
             'tipe' => $request->tipe,
+            'tertuju' => $request->tertuju,
             'tanggal_mulai' => $request->tanggal_mulai,
             'tanggal_akhir' => $request->tanggal_akhir,
             'total_cuti' => $total,
             'pesan' => $request->pesan,
         ]);
         return redirect()->route('cuti.index')->with('message', 'Selesai Regis');
-       
     }
 
     /**
@@ -73,7 +75,7 @@ class CutiController extends Controller
      */
     public function show(Cuti $cuti)
     {
-        //
+        return view('show', ['cuti' => $cuti, 'title' => $cuti->nip, 'subtitle' => 'Pengajuan cuti ' . $cuti->user->name, 'tertuju' => User::where('role', $cuti->tertuju)->get()]);
     }
 
     /**
@@ -97,6 +99,7 @@ class CutiController extends Controller
      */
     public function destroy(Cuti $cuti)
     {
-        //
+        $cuti->delete();
+        return redirect()->back();
     }
 }

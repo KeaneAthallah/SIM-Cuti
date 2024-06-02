@@ -1,50 +1,22 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
-</head>
-
-<body>
-    <div class="container">
-        <h1>Users</h1>
-        <form action="{{ route('import') }}" enctype="multipart/form-data" method="POST">
-            @csrf
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Excel file</label>
-                <input type="file" class="form-control" name="excel">
-                <div id="emailHelp" class="form-text">Upload Excel file</div>
+<x-layout>
+    <x-slot:subtitle>{{ $subtitle }}</x-slot:subtitle>
+    <x-slot:title>{{ $title }}</x-slot:title>
+    <form action="{{ route('import') }}" enctype="multipart/form-data" method="POST">
+        @csrf
+        <div class="sm:col-span-3">
+            <label for="excel" class="block text-sm font-medium leading-6 text-gray-900">Upload Excel</label>
+            <div class="mt-2">
+                <input type="file" name="excel" id="excel" autocomplete="given-name"
+                    class="bg-white pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
             @error('excel')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
-        </form>
+        </div>
+        <div class="mt-2 flex justify-left">
+            <button class=" bg-indigo-600 hover:bg-slate-600 text-white rounded-md px-5 py-2">Submit
+            </button>
+        </div>
+    </form>
     </div>
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
-    </script>
-
-</body>
-
-</html>
+    </x-app-layout>

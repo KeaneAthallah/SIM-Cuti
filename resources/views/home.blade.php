@@ -32,8 +32,8 @@
                                             <td>{{ $c->tanggal_akhir }}</td>
                                             <td>{{ $c->total_cuti . ' Hari' }}</td>
                                             <td>{{ $c->pesan }}</td>
-                                            <td>
-                                                <a href="#" class="btn btn-danger" id="delete">Delete</a>
+                                            <td class="flex flex-row gap-1">
+                                                <form action="{{ route('cuti.update', $c->id) }}"></form>
                                             </td>
                                         </tr>
                                     @endforeach

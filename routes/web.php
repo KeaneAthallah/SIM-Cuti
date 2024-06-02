@@ -14,16 +14,16 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/test',[UserController::class,'list']);
-Route::post('/user-import',[UserController::class,'import'])->name('import');
+Route::get('/test', [UserController::class, 'list']);
+Route::post('/user-import', [UserController::class, 'import'])->name('import');
 Route::middleware('auth')->group(function () {
-    Route::get('/', [DashboardController::class,'index'])->name('dashboard');
-    Route::get('/users', [DashboardController::class,'users'])->name('users');
-    Route::get('/generatePDF',[DashboardController::class,'generatePDF'])->name('generatePDF');
-    Route::resource('/cuti',CutiController::class);
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/users', [DashboardController::class, 'users'])->name('users');
+    Route::get('/pdf', [DashboardController::class, 'pdf'])->name('pdf');
+    Route::resource('/cuti', CutiController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

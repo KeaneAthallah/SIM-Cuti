@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cutis', function (Blueprint $table) {
+        Schema::create('jatah_cutis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->string('tipe');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_akhir');
-            $table->integer('total_cuti');
-            $table->string('status')->default('process');
-            $table->string('tertuju');
-            $table->string('pesan');
+            $table->integer('tahunan')->default(12);
+            $table->integer('besar')->default(90);
+            $table->integer('sakit')->default(14);
+            $table->integer('alasanPenting')->default(30);
+            $table->integer('luarTanggunganNegara')->default(1095);
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cutis');
+        Schema::dropIfExists('jatah_cutis');
     }
 };

@@ -6,25 +6,22 @@ use App\Models\Cuti;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\App;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
-    {    
-        // dd($request->user());
-        return view('home',['title' => 'Dashboard || Home','subtitle' => 'Home','users' => User::all(),'user'=> $request->user(), 'cuti' => Cuti::all()]);
+    {
+        $tes = Cuti::where("tertuju", auth()->user()->role)->get();
+        return view('home', ['title' => 'Dashboard || Home', 'subtitle' => 'Home', 'users' => User::all(), 'user' => $request->user(), 'cuti' => $tes]);
     }
     public function users(Request $request)
-    {    
-        return view('semua',['title' => 'Users || Home','subtitle' => 'Semua Users','users' => User::all()]);
+    {
+        return view('semua', ['title' => 'Users || Home', 'subtitle' => 'Semua Users', 'users' => User::all()]);
     }
-    public function generatePDF(Request $request)
-    { $data = [
-        'name' => auth()->user()->name,
-    ];
-        $pdf = Pdf::loadView('generatePDF', $data);
+    public function pdf(Request $request)
+    {
+        $pdf = Pdf::loadView('pdf', ['user' => auth()->user()]);
         return $pdf->stream('invoice.pdf');
     }
 }

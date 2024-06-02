@@ -8,15 +8,16 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
-    public function list(){
-        return view('users');
+    public function list()
+    {
+        return view('users', ['title' => 'Upload', 'subtitle' => 'Upload excel to database']);
     }
-    public function import(Request $request){
+    public function import(Request $request)
+    {
         $request->validate([
-            'excel' => 'required','mimes:xlsx'
+            'excel' => 'required', 'mimes:xlsx'
         ]);
         Excel::import(new UsersImport, $request->file('excel'));
         return redirect('/')->with('success', 'All good!');
     }
-
 }

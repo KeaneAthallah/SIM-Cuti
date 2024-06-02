@@ -25,7 +25,8 @@
                                 @click="isOpen = !isOpen">
                                 <span class="absolute -inset-1.5"></span>
                                 <span class="sr-only">Open user menu</span>
-                                <span class="mx-2 text-white"> {{ auth()->user()->name }}
+                                <span class="mx-2 text-white">
+                                    {{ auth()->user() ? auth()->user()->name : 'No User Found' }}
                                 </span>
                             </button>
                         </div>
@@ -78,10 +79,10 @@
             <div class="flex items-center px-4">
                 <div class="">
                     <div class="text-base font-medium leading-none text-white">
-                        {{ auth()->user()->name }}
+                        {{ auth()->user() ? auth()->user()->name : 'No User Found' }}
                     </div>
                     <div class="text-sm font-medium leading-none text-gray-400">
-                        {{ auth()->user()->nip }}
+                        {{ auth()->user() ? auth()->user()->nip : 'No User Found' }}
                     </div>
                 </div>
             </div>
