@@ -44,6 +44,10 @@
                                                     </form>
                                                     <a href="{{ route('cuti.show', $c->id) }}" class="btn btn-info"
                                                         id="delete">Info</a>
+                                                    @if ($c->status == 'Diterima')
+                                                        <a href="{{ route('pdf', $c->id) }}" class="btn btn-success"
+                                                            id="delete">Cetak</a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -55,7 +59,8 @@
                 </div>
             </div>
         </div>
-        <form class="px-4 py-4 bg-slate-200 mx-6 rounded-md" action="{{ route('cuti.store') }}" method="POST">
+        <form class="px-4 py-4 bg-slate-200 mx-6 rounded-md" action="{{ route('cuti.store') }}" method="POST"
+            enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="hak" value="{{ auth()->user()->hak }}" id="hak">
             <h2 class="text-base font-bold leading-7 text-gray-900">Ajukan Cuti</h2>
@@ -109,6 +114,17 @@
                             readonly>
                     </div>
                     @error('total_hak')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="sm:col-span-3">
+                    <label for="filePendukung" class="block text-sm font-medium leading-6 text-gray-900">File
+                        Pendukung</label>
+                    <div class="mt-2">
+                        <input type="file" name="filePendukung" id="filePendukung" autocomplete="filePendukung"
+                            class="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-white">
+                    </div>
+                    @error('filePendukung')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>

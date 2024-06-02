@@ -6,6 +6,7 @@ use DateTime;
 use App\Models\Cuti;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CutiController extends Controller
 {
@@ -27,7 +28,7 @@ class CutiController extends Controller
         if ($today->format('m') < $targetDate->format('m')) {
             $yearsPassed--;
         }
-        $tertuju = User::whereIn('role', ['kabid_damkar', 'sekdis', 'kabid_binmas', 'kabid_tibumtran', 'kabid_gakkum'])->get();
+        $tertuju = User::whereIn('role', ['kabid_damkar', 'sekdis', 'kabid_binmas', 'kabid_tibumtran', 'kabid_gakkum', 'kabid_linmas'])->get();
         // dd($tertuju);
         return view("cuti", ['subtitle' => 'Pengajuan Cuti', 'title' => 'Dashboard || Pengajuan', 'cuti' => Cuti::where('user_id', $request->user()->id)->get(), 'yearPassed' => $yearsPassed, 'tertuju' => $tertuju]);
     }
@@ -51,22 +52,21 @@ class CutiController extends Controller
         $interval = $today->diff($targetDate);
         // Extract the number of years from the interval
         $total = $interval->days;
-        $request->validate([
+        $cuti = $request->validate([
             'tipe' => ['required', 'string'],
             'total_hak' => ['required', 'numeric', 'min:' . $total],
             'tanggal_mulai' => ['required', 'date'],
             'tanggal_akhir' => ['required', 'date'],
+            'filePendukung' => ['mimes:pdf', 'file'],
             'pesan' => ['required', 'string'],
         ]);
-        $cuti = Cuti::create([
-            'user_id' => auth()->user()->id,
-            'tipe' => $request->tipe,
-            'tertuju' => $request->tertuju,
-            'tanggal_mulai' => $request->tanggal_mulai,
-            'tanggal_akhir' => $request->tanggal_akhir,
-            'total_cuti' => $total,
-            'pesan' => $request->pesan,
-        ]);
+        if ($request->file('filePendukung')) {
+            $cuti['filePendukung'] = $request->file('filePendukung')->store('filePendukung');
+        }
+        $cuti['user_id'] = auth()->user()->id;
+        $cuti['total_cuti'] = $total;
+        $cuti['tertuju'] = $request->tertuju;
+        $cuti = Cuti::create($cuti);
         return redirect()->route('cuti.index')->with('message', 'Selesai Regis');
     }
 
@@ -83,7 +83,7 @@ class CutiController extends Controller
      */
     public function edit(Cuti $cuti)
     {
-        //
+        return redirect("/storage/" . $cuti->filePendukung);
     }
 
     /**
@@ -91,7 +91,22 @@ class CutiController extends Controller
      */
     public function update(Request $request, Cuti $cuti)
     {
-        //
+        $tertuju = $request->tertuju;
+        $status = $request->status;
+        if (auth()->user()->role == 'admin') {
+            $tertuju = 'sekdis';
+        } elseif (auth()->user()->role == 'sekdis') {
+            $tertuju = 'kasat_polpp';
+        } elseif (auth()->user()->role == 'kasat_polpp') {
+            $status = 'Diterima';
+            $tertuju = 'kasat_polpp';
+        }
+
+        $cuti->update([
+            'status' => $status,
+            'tertuju' => $tertuju
+        ]);
+        return redirect()->back()->with('message', 'Berhasil Update');
     }
 
     /**
@@ -99,6 +114,9 @@ class CutiController extends Controller
      */
     public function destroy(Cuti $cuti)
     {
+        if ($cuti->filePendukung) {
+            Storage::delete($cuti->filePendukung);
+        }
         $cuti->delete();
         return redirect()->back();
     }

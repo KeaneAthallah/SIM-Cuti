@@ -121,6 +121,16 @@
             font-weight: 700;
             font-size: 13px;
         }
+
+        .text-xs {
+            font-size: 0.75rem
+                /* 12px */
+            ;
+            line-height: 1rem
+                /* 16px */
+            ;
+            padding: 10px
+        }
     </style>
 </head>
 
@@ -142,12 +152,11 @@
         </table>
     </div>
     <div class="tanggal">
-        <span>Palu, xx/xx/xxxx</span>
+        <span>Palu, {{ $cuti->created_at->format('d M Y') }}</span>
     </div>
     <div class="tertuju">
         <div>Kepada</div>
-        <div>YTH, xxxxxxxxxxxxxxxxxxxxxx</div>
-        <div>xxxxxxxxxxxxxxxxxxxxxxxxxxx</div>
+        <div>YTH, {{ $tertuju->jabatan }}</div>
         <div>Provinsi Sulawesi Tengah</div>
         <div>Di - </div>
         <div>Palu</div>
@@ -181,7 +190,8 @@
                 <td>: Satuan Polisi Pamong Praja Sulawesi Tengah</td>
             </tr>
         </table>
-        <div>Dengan ini mengajukan cuti untuk (Pesan) terhitung (tanggal_mulai) s/d (tanggal_akhir) selama melaksanakan
+        <div>Dengan ini mengajukan cuti untuk {{ $cuti->pesan }} terhitung {{ $cuti->tanggal_mulai }} s/d
+            {{ $cuti->tanggal_akhir }} selama melaksanakan
             cuti tersebut apabila ada hal-hal yang prinsip yang berhubungan dengan tugas saya agar dikoordinasikan
             dengan Bapak Kepala Satuan Polisi Pamong Praja Sulawesi Tengah.</div>
         <div>Demikianlah surat permohonan ini dan atas restu Bapak diucapkan terima kasih.</div>
@@ -206,23 +216,23 @@
                 <table class="titikkoma" width="100%">
                     <tr>
                         <td>1. Cuti Tahunan</td>
-                        <td>: 10 hari</td>
+                        <td>: - hari</td>
                     </tr>
                     <tr>
                         <td>2. Cuti Besar</td>
-                        <td>: 20 hari</td>
+                        <td>: - hari</td>
                     </tr>
                     <tr>
                         <td>3. Cuti Sakit</td>
-                        <td>: 10 hari</td>
+                        <td>: - hari</td>
                     </tr>
                     <tr>
                         <td>4. Cuti Melahirkan</td>
-                        <td>: 10 hari</td>
+                        <td>: - hari</td>
                     </tr>
                     <tr>
                         <td>5. Cuti Karena Alasan Penting</td>
-                        <td>: 10 hari</td>
+                        <td>: - hari</td>
                     </tr>
                     <tr>
                         <td>6. Keterangan lain-lain</td>
@@ -235,6 +245,9 @@
     <table class="terakhir2" width="300">
         <tr>
             <td class="tengahtable2">CATATAN PERTIMBANGAN ATASAN LANGUNG</td>
+        </tr>
+        <tr>
+            <td class="text-xs">{{ $cuti->sekdis }}</td>
         </tr>
     </table>
     <table class="terakhir3" width="300">

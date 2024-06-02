@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\App;
 
+use function Pest\Laravel\get;
+
 class DashboardController extends Controller
 {
     public function index(Request $request)
@@ -19,9 +21,25 @@ class DashboardController extends Controller
     {
         return view('semua', ['title' => 'Users || Home', 'subtitle' => 'Semua Users', 'users' => User::all()]);
     }
-    public function pdf(Request $request)
+    public function pdf($id)
     {
-        $pdf = Pdf::loadView('pdf', ['user' => auth()->user()]);
-        return $pdf->stream('invoice.pdf');
+        $cuti = Cuti::find($id);
+        $user = User::where('role', $cuti->tertuju)->get();
+        $user = $user[0];
+        $pdf = Pdf::loadView('pdf', ['user' => auth()->user(), 'tertuju', 'cuti' => $cuti, 'tertuju' => $user]);
+        return $pdf->stream($cuti->nip . '.pdf');
+    }
+    public function sekdis1($id)
+    {
+        $cuti = Cuti::find($id);
+        return view('sekdis', ['title' => 'Sekdis', 'subtitle' => 'Catatan pertimbangan', 'cuti' => $cuti]);
+    }
+    public function sekdis(Request $request, $id)
+    {
+        $cuti = Cuti::find($id);
+        $cuti->update([
+            'sekdis' => $request->sekdis
+        ]);
+        return redirect()->route('dashboard')->with('success', 'Yeaay');
     }
 }

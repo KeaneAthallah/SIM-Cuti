@@ -18,7 +18,7 @@
                                         <th>Mulai</th>
                                         <th>Akhir</th>
                                         <th>Total</th>
-                                        <th>Pesan</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -31,9 +31,36 @@
                                             <td>{{ $c->tanggal_mulai }}</td>
                                             <td>{{ $c->tanggal_akhir }}</td>
                                             <td>{{ $c->total_cuti . ' Hari' }}</td>
-                                            <td>{{ $c->pesan }}</td>
+                                            <td>{{ $c->status }}</td>
                                             <td class="flex flex-row gap-1">
-                                                <form action="{{ route('cuti.update', $c->id) }}"></form>
+                                                @if ($c->status != 'Diterima')
+                                                    <form action="{{ route('cuti.update', $c->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <input type="hidden" name="status"
+                                                            value="Ditolak oleh {{ auth()->user()->name }}">
+                                                        <input type="hidden" name="tertuju" value="sampah">
+                                                        <button class="btn btn-danger"
+                                                            onclick="return confirm('apakah anda yakin?')"
+                                                            id="info">Ditolak</button>
+                                                    </form>
+                                                    <form action="{{ route('cuti.update', $c->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <input type="hidden" name="status"
+                                                            value="Diterima oleh {{ auth()->user()->name }}">
+                                                        <input type="hidden" name="tertuju" value="admin">
+                                                        <button class="btn btn-success"
+                                                            onclick="return confirm('apakah anda yakin?')"
+                                                            id="info">Diterima</button>
+                                                    </form>
+                                                @endif
+                                                <a href="{{ route('cuti.show', $c->id) }}" class="btn btn-info"
+                                                    id="delete">Info</a>
+                                                @if (auth()->user()->role == 'sekdis')
+                                                    <a href="{{ route('sekdis1', $c->id) }}" class="btn btn-warning"
+                                                        id="delete">Catatan</a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
