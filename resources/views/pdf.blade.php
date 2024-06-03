@@ -254,6 +254,9 @@
         <tr>
             <td class="tengahtable2">KEPUTUSAN PEJABAT YANG BERWENANG MEMBERIKAN CUTI</td>
         </tr>
+        <tr>
+            <td class="">{{ $sign }}</td>
+        </tr>
     </table>
 </body>
 </body>

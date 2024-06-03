@@ -30,6 +30,7 @@
                                             <td><a href="{{ '/storage/' . $c->filePendukung }}">Lihat disini</a></td>
                                             <td>{{ $c->total_cuti . ' Hari' }}</td>
                                             <td>{{ $c->status }}</td>
+                                            <td>{{ $c->status }}</td>
                                             <td class="flex flex-row gap-1">
                                                 @if ($c->status != 'Diterima')
                                                     <form action="{{ route('cuti.update', $c->id) }}" method="POST">

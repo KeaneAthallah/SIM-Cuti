@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Cuti;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\App;
-
 use function Pest\Laravel\get;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+use Illuminate\Support\Facades\App;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class DashboardController extends Controller
 {
@@ -23,10 +24,11 @@ class DashboardController extends Controller
     }
     public function pdf($id)
     {
+        $sign = QrCode::size(50)->generate('Diapproved oleh KasatPolPP');
         $cuti = Cuti::find($id);
         $user = User::where('role', $cuti->tertuju)->get();
         $user = $user[0];
-        $pdf = Pdf::loadView('pdf', ['user' => auth()->user(), 'tertuju', 'cuti' => $cuti, 'tertuju' => $user]);
+        $pdf = Pdf::loadView('pdf', ['user' => auth()->user(), 'tertuju', 'cuti' => $cuti, 'tertuju' => $user, 'sign' => $sign]);
         return $pdf->stream($cuti->nip . '.pdf');
     }
     public function sekdis1($id)

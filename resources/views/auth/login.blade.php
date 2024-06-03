@@ -1,4 +1,6 @@
 <x-guest-layout>
+    <span class="flex text-center justify-center text-base font-bold">Satuan Polisi Pamong Praja Sulawesi
+        Tengah</span>
     <span class="flex text-center justify-center text-2xl font-bold">SIM-CUTI</span>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />

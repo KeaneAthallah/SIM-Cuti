@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/test', [UserController::class, 'list']);
+Route::get('/php', fn () => phpinfo());
 Route::post('/user-import', [UserController::class, 'import'])->name('import');
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
