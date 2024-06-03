@@ -8,9 +8,10 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+
                         <x-nav-link href="/" :active="request()->is('/')">Dashboard</x-nav-link>
+
                         <x-nav-link href="/cuti" :active="request()->is('cuti')">Cuti</x-nav-link>
-                        <x-nav-link href="/users" :active="request()->is('users')">Users</x-nav-link>
                     </div>
                 </div>
             </div>
@@ -73,7 +74,6 @@
         <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
             <x-nav-link-mobile href="/" :active="request()->is('/')">Dashboard</x-nav-link-mobile>
             <x-nav-link-mobile href="/cuti" :active="request()->is('cuti')">Cuti</x-nav-link-mobile>
-            <x-nav-link-mobile href="/users" :active="request()->is('users')">Users</x-nav-link-mobile>
         </div>
         <div class="border-t border-gray-700 pb-3 pt-4">
             <div class="flex items-center px-4">
