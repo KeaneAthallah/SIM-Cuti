@@ -35,13 +35,6 @@
                                                 <td>{{ $c->status }}</td>
                                                 <td>{{ $c->pesan }}</td>
                                                 <td class="flex flex-row gap-1">
-                                                    <form action="{{ route('cuti.destroy', $c->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="btn btn-danger"
-                                                            onclick="return confirm('Apakah anda yakin ingin menghapusnya?')"
-                                                            id="delete">Delete</button>
-                                                    </form>
                                                     <a href="{{ route('cuti.show', $c->id) }}" class="btn btn-info"
                                                         id="delete">Info</a>
                                                     @if ($c->status == 'Diterima')

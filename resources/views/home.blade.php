@@ -15,8 +15,7 @@
                                         <th>No</th>
                                         <th>NIP</th>
                                         <th>Jenis</th>
-                                        <th>Mulai</th>
-                                        <th>Akhir</th>
+                                        <th>File Pendukung</th>
                                         <th>Total</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -28,8 +27,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $c->user->nip }}</td>
                                             <td>{{ 'Cuti ' . $c->tipe }}</td>
-                                            <td>{{ $c->tanggal_mulai }}</td>
-                                            <td>{{ $c->tanggal_akhir }}</td>
+                                            <td><a href="{{ '/storage/' . $c->filePendukung }}">Lihat disini</a></td>
                                             <td>{{ $c->total_cuti . ' Hari' }}</td>
                                             <td>{{ $c->status }}</td>
                                             <td class="flex flex-row gap-1">
