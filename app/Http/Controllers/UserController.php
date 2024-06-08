@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Imports\UsersImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -19,5 +20,11 @@ class UserController extends Controller
         ]);
         Excel::import(new UsersImport, $request->file('excel'));
         return redirect('/')->with('success', 'All good!');
+    }
+    public function delete($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->back()->with('success', '');
     }
 }

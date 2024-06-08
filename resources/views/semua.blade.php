@@ -30,8 +30,12 @@
                                             <td>{{ $user->gol }}</td>
                                             <td>{{ $user->jabatan }}</td>
                                             <td class="flex flex-row gap-1">
-                                                <a href="#" class="btn btn-danger" id="delete">Delete</a>
-                                                <a href="#" class="btn btn-info" id="info">info</a>
+                                                <form action="{{ route('users.delete', $user->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('Delete')
+                                                    <button class="btn btn-danger" id="delete"
+                                                        onclick="confirm ('Apakah anda yakin ingin menghapus user ini?')">Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

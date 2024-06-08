@@ -1,4 +1,5 @@
-@props(['active']) @php$classes =
+@props(['active']) @php
+    $classes =
         $active ?? false
             ? 'block w-full ps-3 pe-4
 py-2 border-l-4 border-indigo-400 text-start text-base font-medium
